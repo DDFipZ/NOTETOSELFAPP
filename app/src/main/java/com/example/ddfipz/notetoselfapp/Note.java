@@ -41,7 +41,7 @@ public class Note {
         this.mTodo = mTodo;
     }
 
-    public boolean ismImportant() {
+    public boolean isImportant() {
         return mImportant;
     }
 

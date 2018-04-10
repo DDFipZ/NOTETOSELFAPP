@@ -3,7 +3,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     
-
+    <string name="action_add">Action</string>
     <string name="title_hint">Title</string>
     <string name="description_hint">Description</string>
     <string name="idea_checkbox">Idea</string>

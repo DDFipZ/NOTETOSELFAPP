@@ -3,7 +3,7 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/editTitle"
+        android:id="@+id/txtTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -15,12 +15,12 @@
         android:layout_alignParentLeft="true" />
 
     <EditText
-        android:id="@+id/editDescription"
+        android:id="@+id/txtDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="false"
-        android:layout_below="@+id/editTitle"
+        android:layout_below="@+id/txtTitle"
         android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="@string/description_hint"
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="false"
-        android:layout_below="@+id/editDescription"
+        android:layout_below="@+id/txtDescription"
         android:layout_marginTop="40dp"
         android:text="@string/idea_checkbox"
         android:layout_alignParentLeft="true" />

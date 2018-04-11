@@ -1,6 +1,7 @@
 package com.example.ddfipz.notetoselfapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -79,6 +80,8 @@ private NoteAdapter mNoteAdapter;
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent myIntent = new Intent(this,SettingsActivity.class);
+            startActivity(myIntent);
             return true;
         }
 
@@ -87,6 +90,8 @@ private NoteAdapter mNoteAdapter;
             dialog.show(getFragmentManager(), "");
             return true;
         }
+
+
 
         return super.onOptionsItemSelected(item);
     }

@@ -2,10 +2,12 @@ package com.example.ddfipz.notetoselfapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.Image;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +28,20 @@ import java.util.ListIterator;
 public class MainActivity extends AppCompatActivity {
 
 private NoteAdapter mNoteAdapter;
+private boolean mSound;
+private int mAnimOption;
+private SharedPreferences mPrefs;
+
+//To update the app from settings we override onResume
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        mPrefs = getSharedPreferences("Note to self", MODE_PRIVATE);
+        mSound = mPrefs.getBoolean("sound", true);
+        mAnimOption = mPrefs.getInt("anim option", SettingsActivity.FAST);
+    }
 
 
     @Override
@@ -97,8 +113,30 @@ private NoteAdapter mNoteAdapter;
     }
 
     public class NoteAdapter extends BaseAdapter {
-
+        private JSONSerializer mSerializer;
         List<Note> noteList = new ArrayList<Note>();
+
+        public NoteAdapter(){
+            mSerializer = new JSONSerializer("NoteToSelf.json",MainActivity.this.getApplicationContext());
+
+            try{
+                noteList = mSerializer.load();
+            }catch (Exception e){
+                noteList = new ArrayList<Note>();
+                Log.e("Error Loading Notes: ", "", e);
+            }
+
+        }
+        //To save the notes we make a new method called saveNotes
+        public void saveNotes() {
+            try{
+                mSerializer.save(noteList);
+            }catch (Exception e){
+                Log.e("Error Saving Notes: ","", e);
+            }
+
+        }
+
             @Override
             public int getCount() {
                 return noteList.size();
@@ -172,6 +210,12 @@ private NoteAdapter mNoteAdapter;
                 }
 
             }
-        }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mNoteAdapter.saveNotes();
+    }
+}
 
 

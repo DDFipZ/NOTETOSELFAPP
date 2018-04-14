@@ -217,5 +217,3 @@ private SharedPreferences mPrefs;
         mNoteAdapter.saveNotes();
     }
 }
-
-

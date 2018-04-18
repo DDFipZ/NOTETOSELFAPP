@@ -23,8 +23,8 @@ public class SettingsActivity extends AppCompatActivity {
 
     private Boolean mSound;
     static final int FAST = 0;
-    private static final int SLOW = 1;
-    private static final int NONE = 2;
+    static final int SLOW = 1;
+    static final int NONE = 2;
 
     private int mAnimOption;
 

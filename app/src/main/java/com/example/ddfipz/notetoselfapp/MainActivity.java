@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -32,6 +34,9 @@ private boolean mSound;
 private int mAnimOption;
 private SharedPreferences mPrefs;
 
+Animation mAnimFlash;
+Animation mAnimFadeIn;
+
 //To update the app from settings we override onResume
 
     @Override
@@ -41,6 +46,17 @@ private SharedPreferences mPrefs;
         mPrefs = getSharedPreferences("Note to self", MODE_PRIVATE);
         mSound = mPrefs.getBoolean("sound", true);
         mAnimOption = mPrefs.getInt("anim option", SettingsActivity.FAST);
+
+        mAnimFlash = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.flash);
+        mAnimFadeIn = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fade_in);
+
+        //set the rate of flashes in settings
+        if(mAnimOption == SettingsActivity.FAST){
+
+            mAnimFlash.setDuration(200);
+        }else if (mAnimOption == SettingsActivity.SLOW){
+            mAnimFlash.setDuration(1000);
+        }
     }
 
 
@@ -49,7 +65,7 @@ private SharedPreferences mPrefs;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //Hello World! 222
-
+        setTitle("Notes :)");
         mNoteAdapter = new NoteAdapter();
 
         ListView listNote = (ListView) findViewById(R.id.listView);
@@ -155,7 +171,9 @@ private SharedPreferences mPrefs;
             @Override
             public View getView(int whichItem, View view, ViewGroup viewGroup) {
 
-                //Test to see if view has been properly implemented
+
+
+
 
                 if( view == null) {
 
@@ -182,6 +200,14 @@ private SharedPreferences mPrefs;
                 //Now, to hide any unwanted imageviews:
 
                 Note tempNote = noteList.get(whichItem);
+
+                //To animate or not to animate
+                if (tempNote.isImportant() && mAnimOption !=SettingsActivity.NONE){
+
+                    view.setAnimation(mAnimFlash);
+                } else{
+                    view.setAnimation(mAnimFadeIn);
+                }
 
                 if(!tempNote.isImportant()){
                     ivImportant.setVisibility(View.GONE);
